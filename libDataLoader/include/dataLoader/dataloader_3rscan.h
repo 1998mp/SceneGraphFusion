@@ -17,6 +17,7 @@ namespace PSLAM {
         std::string pose_file_name_ = "";
 
         Eigen::Matrix<float, 4, 4> rotation_matrix_Z(const float rot = M_PI);
+        Eigen::Matrix<float, 4, 4> rotation_matrix_X(const float rot = M_PI);
 
         const std::string GetFileName(const std::string &folder,
                                       const std::string &subfolder,

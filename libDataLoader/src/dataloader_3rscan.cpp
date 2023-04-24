@@ -52,7 +52,8 @@ static bool LoadInfoIntrinsics(const std::string& filename,
             }
         }
         file.close();
-        intrinsics.Set(width,height,fx,fy,cx,cy,1.f);
+        // intrinsics.Set(width,height,fx,fy,cx,cy,1.f);
+        intrinsics.Set(height, width, fy, fx,cy, cx,1.f);
         return true;
     }
 
@@ -135,12 +136,24 @@ bool DatasetLoader_3RScan::Retrieve() {
 
     if (isFileExist(colorFilename.c_str())) {
         m_rgb = cv::imread(colorFilename, -1);
+    } else {
+        SCLOG(VERBOSE) << "Cannot find path:\n" << colorFilename;
     }
-    if (m_dataset->rotate_pose_img) {
+    //if (m_dataset->rotate_pose_img) {
         cv::rotate(m_d, m_d, cv::ROTATE_90_COUNTERCLOCKWISE);
+        cv::rotate(m_rgb, m_rgb, cv::ROTATE_90_COUNTERCLOCKWISE); // Matyas
+    //}
+
+    //std::cout << "m_rgb" << m_rgb.size() << std::endl;
+    //std::cout << "m_d" << m_d.size() << std::endl;
+    if (!isFileExist(pose_file_name_)) {
+        SCLOG(VERBOSE) << "Cannot find path:\n" << pose_file_name_;
     }
     LoadPose(m_pose, pose_file_name_,m_dataset->rotate_pose_img);
     m_pose = m_poseTransform * m_pose;
+    // m_pose = rotation_matrix_Z(M_PI/2) * m_pose; // Matyas, new
+    m_pose = m_pose * rotation_matrix_Z(M_PI/2); // * m_pose;
+    m_pose = rotation_matrix_X(-2*M_PI/3) * m_pose; // for sequence: 220601BudapestLounge
     frame_index += m_dataset->frame_index_counter;
     return true;
 }
@@ -157,5 +170,14 @@ Eigen::Matrix<float,4,4> DatasetLoader_3RScan::rotation_matrix_Z(const float rot
             sin(rot), cos(rot), 0, 0,
             0, 0, 1, 0,
             0, 0, 0, 1;
+    return res;
+}
+
+Eigen::Matrix<float,4,4> DatasetLoader_3RScan::rotation_matrix_X(const float rot) {
+    Eigen::Matrix<float,4,4> res = Eigen::Matrix<float,4,4>::Identity();
+    res << 1, 0, 0, 0,
+           0, cos(rot), -sin(rot), 0,
+           0, sin(rot), cos(rot), 0,
+           0, 0, 0, 1;
     return res;
 }
