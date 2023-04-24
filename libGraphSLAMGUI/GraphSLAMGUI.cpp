@@ -384,6 +384,7 @@ void GraphSLAMGUI::Process(){
     const Eigen::Matrix4f eigen_vm   = GLM2E<float,4,4>(glCam->camera_control_->GetViewMatrix());
 
 
+//std::cout << "mRGB.size()" << mRGB.size() << std::endl;
 #ifdef APPLE
     windowWidth *=2;
     windowHeight*=2;
