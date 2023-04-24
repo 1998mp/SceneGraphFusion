@@ -6,3 +6,9 @@ external/
 *.zip
 __pycache__
 data/
+
+CVPR21_traced/traced/*
+!CVPR21_traced/traced/classes.txt
+!CVPR21_traced/traced/relationships.txt
+
+.vscode/settings.json
