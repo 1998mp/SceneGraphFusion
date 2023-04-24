@@ -31,7 +31,7 @@ struct Params{
     float depth_edge_threshold = -1; // -1: use default.
 
     /// Use rendered view from a given mesh (for ScanNet)
-    bool use_render=true;
+    bool use_render=false; // Matyas
     bool save=true;
     bool save_graph=true;
     bool save_graph_ply = true;
@@ -205,6 +205,9 @@ int main(int argc, char** argv) {
 #ifdef COMPILE_WITH_PSLAM_GUI
     SCLOG(INFO) << "start gui...";
     PSLAM::GraphSLAMGUI gui(&graphSlam, dataset_loader_.get());
+    //std::cout << "w: " << dataset_loader_->GetCamParamDepth().width << std::endl;
+    //std::cout << "h: " << dataset_loader_->GetCamParamDepth().height << std::endl;
+    //std::cout << "path " << path << std::endl;
     if(params.use_render) gui.SetRender(dataset_loader_->GetCamParamDepth().width,dataset_loader_->GetCamParamDepth().height,path, true);
     gui.run();
 #else

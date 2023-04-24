@@ -20,7 +20,7 @@ namespace PSLAM {
             prefix_rgb = "/frame-";
 
             suffix_depth = ".depth.pgm";
-            suffix_rgb = ".color.jpg";
+            suffix_rgb = ".color.png";  // Matyas
             suffix_pose = ".pose.txt";
             if (rotate_pose_img) {
 //                suffix_depth = ".rendered.depth.png";
@@ -34,7 +34,7 @@ namespace PSLAM {
             number_pose = 6;
             number_length = 6;
         }
-        bool use_aligned_pose = true;
+        bool use_aligned_pose = false; // Matyas
     };
 }
 
