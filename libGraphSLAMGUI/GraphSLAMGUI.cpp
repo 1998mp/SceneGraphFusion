@@ -452,6 +452,30 @@ void GraphSLAMGUI::Process(){
 
     if(bDrawTraj)mTrajectoryDrawer.Draw(eigen_proj,eigen_vm);
 
+    bool bDrawAxes = true;
+    if(bDrawAxes) {
+        PSLAM::TrajectoryDrawer xAxisDrawer;
+        xAxisDrawer.Init({1,0,0,1});
+        //xAxisDrawer.SetColor({1,0,0,1});// red
+        xAxisDrawer.Add(glm::vec3(0,0,0));
+        xAxisDrawer.Add(glm::vec3(1,0,0));
+        xAxisDrawer.Draw(eigen_proj,eigen_vm);
+
+        PSLAM::TrajectoryDrawer yAxisDrawer;
+        yAxisDrawer.Init({0,1,0,1});
+        //yAxisDrawer.SetColor({0,1,0,1});// green
+        yAxisDrawer.Add(glm::vec3(0,0,0));
+        yAxisDrawer.Add(glm::vec3(0,1,0));
+        yAxisDrawer.Draw(eigen_proj,eigen_vm);
+
+        PSLAM::TrajectoryDrawer zAxisDrawer;
+        zAxisDrawer.Init({0,0,1,1});
+        //zAxisDrawer.SetColor({0,0,1,1});// blue
+        zAxisDrawer.Add(glm::vec3(0,0,0));
+        zAxisDrawer.Add(glm::vec3(0,0,1));
+        zAxisDrawer.Draw(eigen_proj,eigen_vm);        
+    }
+
     if(bNeedUpdate){
         UpdateGraphRenderer();
     }
