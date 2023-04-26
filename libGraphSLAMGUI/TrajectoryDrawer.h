@@ -12,7 +12,7 @@ namespace PSLAM {
     class TrajectoryDrawer{
     public:
         ~TrajectoryDrawer();
-        void Init();
+        void Init(Eigen::Vector4f color = {0, 1, 0, 1.f});
         void Add(glm::vec3 point, float interval=0.002);
         void Draw(const Eigen::Matrix4f& projection, const Eigen::Matrix4f& viewMatrix);
     private:

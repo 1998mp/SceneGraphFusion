@@ -13,11 +13,11 @@ TrajectoryDrawer::~TrajectoryDrawer() {
     }
 }
 
-void TrajectoryDrawer::Init() {
+void TrajectoryDrawer::Init(Eigen::Vector4f color) {
     const std::string shaderPath = std::string(GUI_FOLDER_PATH) + "Shaders/";
     mShader = std::make_unique<glUtil::Shader>(shaderPath+"camera_shader.vs",shaderPath+"camera_shader.fs");
     mShader->use();
-    mShader->set("color", Eigen::Vector4f{0, 1, 0, 1.f});
+    mShader->set("color", color);
     mShader->set("model", glm::mat4(1.f));
     UpdateBuffer(2<<8);
 }
