@@ -31,7 +31,7 @@ struct Params{
     float depth_edge_threshold = -1; // -1: use default.
 
     /// Use rendered view from a given mesh (for ScanNet)
-    bool use_render=true;
+    bool use_render=false;
     bool save=true;
     bool save_graph=true;
     bool save_graph_ply = true;

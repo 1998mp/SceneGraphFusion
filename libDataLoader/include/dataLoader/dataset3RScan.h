@@ -34,7 +34,7 @@ namespace PSLAM {
             number_pose = 6;
             number_length = 6;
         }
-        bool use_aligned_pose = true;
+        bool use_aligned_pose = false;
     };
 }
 

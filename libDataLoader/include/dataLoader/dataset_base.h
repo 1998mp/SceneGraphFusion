@@ -16,7 +16,7 @@ namespace PSLAM {
         std::string folder = "";
 
         // TODO change to true if V2
-        bool rotate_pose_img = true;
+        bool rotate_pose_img = false;
 
         int frame_index_counter = 1;
         int number_length = 0;
