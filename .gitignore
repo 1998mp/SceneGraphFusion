@@ -5,7 +5,8 @@ bin
 external/
 *.zip
 __pycache__
-data/
+data/*
+!data/rename_files.py
 
 CVPR21_traced/traced/*
 !CVPR21_traced/traced/classes.txt
