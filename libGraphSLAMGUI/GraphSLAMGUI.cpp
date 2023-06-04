@@ -395,6 +395,7 @@ void GraphSLAMGUI::Process(){
         cv::Mat rgb;
         cv::cvtColor(mRGB,rgb,cv::COLOR_BGR2RGB);
         cv::flip(rgb, rgb, 0);
+        cv::rotate(rgb, rgb, cv::ROTATE_90_CLOCKWISE);
         if (dynamic_cast<DatasetLoader_3RScan*>(mpDataLoader))
             cv::rotate(rgb, rgb, cv::ROTATE_90_COUNTERCLOCKWISE);
         mImageDrawer[0].Update(rgb.ptr(), rgb.cols, rgb.rows);
@@ -402,6 +403,7 @@ void GraphSLAMGUI::Process(){
         cv::Mat greyImage;
         cvtColor(mDepth, greyImage, cv::COLOR_GRAY2BGR);
         cv::flip(greyImage, greyImage, 0);
+        cv::rotate(greyImage, greyImage, cv::ROTATE_90_CLOCKWISE);
         if (dynamic_cast<DatasetLoader_3RScan*>(mpDataLoader))
             cv::rotate(greyImage, greyImage, cv::ROTATE_90_COUNTERCLOCKWISE);
         double min;
@@ -415,6 +417,7 @@ void GraphSLAMGUI::Process(){
 
         cv::Mat flipLabel;
         cv::flip(mpGraphSLAM->GetInSeg()->GetSegmentedLabelMap(),flipLabel, 0);
+        cv::rotate(flipLabel, flipLabel, cv::ROTATE_90_CLOCKWISE);
         if (dynamic_cast<DatasetLoader_3RScan*>(mpDataLoader))
             cv::rotate(flipLabel, flipLabel, cv::ROTATE_90_COUNTERCLOCKWISE);
         mImageDrawer[2].Update(flipLabel.ptr(),
@@ -427,8 +430,11 @@ void GraphSLAMGUI::Process(){
         const int size = 3;
         const float sub_window_height = (windowHeight-(0*size+2)) / size;
         const float sub_window_width = scannet ?
+                                       sub_window_height*(static_cast<float>(mpDataLoader->GetDepthImage().rows)/static_cast<float>(mpDataLoader->GetDepthImage().cols)) :
+                                       sub_window_height*(static_cast<float>(mpDataLoader->GetDepthImage().cols)/static_cast<float>(mpDataLoader->GetDepthImage().rows));
+        /*const float sub_window_width = scannet ?
                                        sub_window_height*(static_cast<float>(mpDataLoader->GetDepthImage().cols)/static_cast<float>(mpDataLoader->GetDepthImage().rows)) :
-                                       sub_window_height*(static_cast<float>(mpDataLoader->GetDepthImage().rows)/static_cast<float>(mpDataLoader->GetDepthImage().cols));
+                                       sub_window_height*(static_cast<float>(mpDataLoader->GetDepthImage().rows)/static_cast<float>(mpDataLoader->GetDepthImage().cols));*/
         int i=0;
         for(auto &drawer: mImageDrawer){
             glViewport(windowWidth - sub_window_width,
@@ -437,6 +443,8 @@ void GraphSLAMGUI::Process(){
             drawer.Draw(eigen_proj,eigen_vm);
         }
         glViewport(0, 0, windowWidth, windowHeight);
+        std::cout << "sub_window_height" <<  sub_window_height << std::endl;
+        std::cout << "sub_window_width" <<  sub_window_width << std::endl;
     }
 
     /// Draw3D
