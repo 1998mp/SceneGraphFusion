@@ -75,7 +75,9 @@ void GraphSLAM::ProcessFrame(int idx, const cv::Mat &colorImage, const cv::Mat &
 
     mTimeStamp = idx;
     CTICK("[SLAM][ProcessFrame]1.ProcessFrame");
+    std::cout << "xxx" << std::endl;
     inseg_->ProcessFrame(depthImage, colorImage);
+    std::cout << "yyy" << std::endl;
     CTOCK("[SLAM][ProcessFrame]1.ProcessFrame");
     pose_ = inseg_->pose();
 
