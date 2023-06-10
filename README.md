@@ -1,3 +1,12 @@
+# Part of my master's thesis at BME
+
+Part of my master's thesis at BME is based on the following project, I didn't start from scratch. Mátyás Pelle
+
+There are 3 branches:
+- main - for the 3RScan dataset
+- dev - for my own dataset, which is in a form like 3RScan
+- develop - for my own dataset, which is in rotated
+
 # SceneGraphFusion
 ![teaser](img/teaser.png)
 **Authors**: [Shun-Cheng Wu][sc], [Johanna Wald][jojo], [Keisuke Tateno][keisu], [Nassir Navab][nassir] and [Federico Tombari][fede]
